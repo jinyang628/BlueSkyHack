@@ -8,6 +8,7 @@ const ClickButton = ({ onClick, children }) => {
       sx={{
         marginRight: "1rem",
         marginTop: "1rem",
+        borderRadius: "1rem",
       }}
     >
       {children}
