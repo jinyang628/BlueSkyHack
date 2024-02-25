@@ -47,7 +47,9 @@ app.post('/api/makePost', (req, res) => {
     const input_text: string = userInput.text;
     const score: number = userInput.score;
     userInputScores[input_text] = score;
-    res.status(201).send("Successfully stored the user input in server!");
+    const successMessage: string = "Successfully stored the user input in server!";
+    res.status(201).json({ successMessage });
+
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }
