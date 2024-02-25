@@ -28,8 +28,8 @@ app.post('/api/getScore', (req, res) => {
   res.status(201).send(10);
 });
 
-app.post('/api/rate_user_input', (req, res) => {
-
+app.post('/api/inference', (req, res) => {
+    
 });
 
 // PUT updates existing data on server ENTIRELY
