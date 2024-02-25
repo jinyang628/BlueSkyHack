@@ -27,7 +27,6 @@ const theme = createTheme({
       fontWeight: 600, // Example weight adjustment
       // Add more properties as needed
     },
-    // Other typography variants can be customized here as well
   },
 });
 
@@ -140,8 +139,8 @@ const App = () => {
           flexDirection: "row", // Stack children vertically
           justifyContent: "space-between", // Center children horizontally
           alignItems: "flex-start", // Center children vertically
-          height: "100vh", // Full viewport height
-          width: "100vw",
+          minHeight: "100vh",
+          minWidth: "100vw",
         }}
       >
         <Box
