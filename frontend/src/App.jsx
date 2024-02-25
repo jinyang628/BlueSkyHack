@@ -7,10 +7,10 @@ import getScore from "./api/getScore";
 import makePost from "./api/makePost";
 import getPostLeaderboard from "./api/getPostLeaderboard";
 import { paraphraseReplicate } from "./api/paraphraseReplicate";
+import { createReplicate } from "./api/createReplicate";
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { CircularProgress } from "@mui/material";
-
 
 // Create a theme instance
 const theme = createTheme({
@@ -38,7 +38,6 @@ const App = () => {
   const [leaderboard, setLeaderboard] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-
   const handleScore = async () => {
     try {
       const response = await getScore(inputText);
@@ -49,8 +48,6 @@ const App = () => {
       setError("Error fetching score. Please try again.");
     }
   };
-
-  // App.jsx
 
   const handlePost = async () => {
     // Ensure there is a score before attempting to post
@@ -90,7 +87,21 @@ const App = () => {
     }
   };
 
-  const handleGenerate = async () => {
+  const handleCreate = async () => {
+    try {
+      setIsLoading(true); // Start loading
+      const response = await createReplicate(inputText);
+      setInputText(response);
+      setIsLoading(false); // Stop loading when the request is completed
+      setError(null);
+    } catch (error) {
+      console.error("Error generating:", error);
+      setIsLoading(false); // Stop loading in case of an error
+      setError("Error generating. Please try again.");
+    }
+  }
+
+  const handleParaphrase = async () => {
     try {
       setIsLoading(true); // Start loading
       const response = await paraphraseReplicate(inputText);
@@ -162,8 +173,11 @@ const App = () => {
               <ClickButton onClick={handleLeaderboard}>
                 Get Leaderboard
               </ClickButton>
-              <ClickButton onClick={handleGenerate}>
-                Help me Replicate!
+              <ClickButton onClick={handleCreate}>
+                Generate for me Replicate!
+              </ClickButton>
+              <ClickButton onClick={handleParaphrase}>
+                Paraphrase for me Replicate!
               </ClickButton>
               {isLoading && (
               <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
