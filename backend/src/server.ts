@@ -14,7 +14,7 @@ const port = 3000;
 app.use(express.json());
 app.use(cors());
 
-const userInputScores: { [key: string]: number } = {
+let userInputScores: { [key: string]: number } = {
   "Aaron and Samuel are the best hackathon teammates in the world!": 10,
 };
 
@@ -65,9 +65,9 @@ app.get("/api/getPostLeaderboard", (req, res) => {
   }
 });
 
-app.get("/api/callReplicate", async (req, res) => {
+app.post("/api/callReplicate", async (req, res) => {
   try {
-    const user_input: string = req.body;
+    const user_input: string = req.body.userInput;
     const better_input: string = await callReplicate(user_input);
     res.status(200).json(better_input);
   } catch (error: any) {
