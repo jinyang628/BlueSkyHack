@@ -8,6 +8,7 @@ interface UserInput {
     score: number;
 }
 
+// Call this function to make a post on BlueSky. Make sure user input shape follows the interface
 export default async function makePost(userInput: UserInput) {
     const agent = new BskyAgent({
         service: 'https://bsky.social'
