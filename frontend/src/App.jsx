@@ -93,7 +93,7 @@ const App = () => {
 
   const handleCreate = async () => {
     try {
-      const userInstruction = "I need your help to make a social media post. Make it as engaging as possible - I want to be famous!";
+      const userInstruction = "I need your help to make a social media post. Make it as engaging as possible - I want to be famous! Keep the content within 300 characters.";
       setIsLoading(true); // Start loading
       const response = await createReplicate(userInstruction);
       setInputText(response);

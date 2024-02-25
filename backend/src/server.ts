@@ -21,6 +21,11 @@ let userInputScores: { [key: string]: number } = {
 
 const server_check: string = "Server is running properly";
 
+const generateRandomNumber = (): number => {
+  const randomNumber: number = Math.random() * 9 + 1;
+  return parseFloat(randomNumber.toFixed(2));
+};
+
 app.get("/", (req, res) => {
   try {
     res.status(200).json(server_check);
@@ -34,7 +39,7 @@ app.post("/api/getScore", (req, res) => {
     const user_input: string = req.body;
     
     // TODO: Get the score from inference side
-    const score = 10;
+    const score: number = generateRandomNumber();
 
     // Return the current score back to frontend
     res.status(201).json({ score });
