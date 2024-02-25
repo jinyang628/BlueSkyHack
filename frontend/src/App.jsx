@@ -11,6 +11,7 @@ import { createReplicate } from "./api/createReplicate";
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { CircularProgress } from "@mui/material";
+import TitleComponent from "./components/TitleComponent";
 
 // Create a theme instance
 const theme = createTheme({
@@ -122,41 +123,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Typography
-        variant="h3" // Adjusts the size according to the theme's typography scale
-        component="h3"
-        sx={{
-          color: "black", // Uses the primary color from the theme
-          margin: "4rem", // Adds margin above and below for spacing
-          fontWeight: "bold", // Makes the font weight bold
-          textAlign: "center", // Centers the text
-        }}
-      >
-        Virality
-      </Typography>
-      <Typography
-        variant="h5" // Adjusts the size according to the theme's typography scale
-        component="h5" 
-        sx={{
-          color: "black", // Uses the primary color from the theme
-          fontWeight: "bold", // Makes the font weight bold
-          textAlign: "center", // Centers the text
-        }}
-      >
-        🎉 Your fame is our mission 🎉 
-      </Typography>
-      <Typography
-        variant="h5" // Adjusts the size according to the theme's typography scale
-        component="h5" 
-        sx={{
-          color: "black", // Uses the primary color from the theme
-          margin: "1rem",
-          fontWeight: "bold", // Makes the font weight bold
-          textAlign: "center", // Centers the text
-        }}
-      >
-        👄 Your vanity, our tradition 👄 
-      </Typography>
+      <TitleComponent />
       <Box
         style={{
           display: "flex", // Enable flexbox
