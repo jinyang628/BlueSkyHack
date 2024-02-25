@@ -78,7 +78,6 @@ const App = () => {
 
         // Call makePost with the constructed userInput object
         const response = await makePost(userInput);
-        console.log("Post response:", response);
         // Handle response or success state here, such as resetting the form
         setShowCongrats(true);
         setTimeout(() => setShowCongrats(false), 5000);
@@ -98,7 +97,6 @@ const App = () => {
     try {
       const response = await getPostLeaderboard();
       setLeaderboard(response.data);
-      console.log("Leaderboard:", response.data);
       setError(null);
     } catch (error) {
       console.error("Error fetching leaderboard:", error);
@@ -112,7 +110,6 @@ const App = () => {
         "I need your help to make a social media post. Make it as engaging as possible - I want to be famous! Keep the content within 300 characters. Make sure the generated content is ready to be posted immediately without auxilliary information.";
       setIsLoading(true); // Start loading
       const response = await createReplicate(userInstruction);
-      console.log(response);
       setInputText(response);
       setIsLoading(false); // Stop loading when the request is completed
       setError(null);
