@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { Container, CssBaseline } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TextInput from "./components/Input";
 import ClickButton from "./components/ClickButton";
+import { getScore } from "./api/getScore";
 
 // Create a theme instance
 const theme = createTheme({
@@ -13,6 +15,36 @@ const theme = createTheme({
 });
 
 const App = () => {
+  const [inputText, setInputText] = useState("");
+  const [score, setScore] = useState(null);
+  const [error, setError] = useState(null);
+
+  const handleScore = async () => {
+    try {
+      const response = await getScore(inputText);
+      setScore(response.data);
+      setError(null);
+    } catch (error) {
+      console.error("Error fetching score:", error);
+      setError("Error fetching score. Please try again.");
+    }
+  };
+
+  const handlePost = async () => {
+    try {
+      const response = await getScore(inputText);
+      setScore(response.data);
+      setError(null);
+    } catch (error) {
+      console.error("Error fetching score:", error);
+      setError("Error fetching score. Please try again.");
+    }
+  };
+
+  const handleInputChange = (event) => {
+    setInputText(event.target.value);
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -26,13 +58,17 @@ const App = () => {
         }}
       >
         <Container maxWidth="sm">
-          <TextInput label="Type post here!" variant="outlined" fullWidth />
-          <ClickButton onClick={() => console.log("Button clicked")}>
-            Score
-          </ClickButton>
-          <ClickButton onClick={() => console.log("Button clicked")}>
-            Post
-          </ClickButton>
+          <TextInput
+            label="Type post here!"
+            variant="outlined"
+            fullWidth
+            value={inputText}
+            onChange={handleInputChange}
+          />
+          <ClickButton onClick={handleScore}>Get Score</ClickButton>
+          <ClickButton onClick={handlePost}>Post</ClickButton>
+          {score && <p>Score: {score}</p>}
+          {error && <p>Error: {error}</p>}
         </Container>
       </div>
     </ThemeProvider>
