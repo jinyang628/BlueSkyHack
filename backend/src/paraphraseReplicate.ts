@@ -5,7 +5,7 @@ export default async function paraphraseReplicate(user_input: string) {
         auth: process.env.REPLICATE_API_TOKEN,
     });
 
-    const prefix_instruction: string = "Rephrase this social media post to be more engaging - I want to be famous! Make sure that the paraphrased content stays true to the original input. Keep it within 300 characters."
+    const prefix_instruction: string = "Rephrase this social media post to be more engaging - I want to be famous! Make sure that the paraphrased content stays true to the original input. Keep it within 300 characters. Make sure the generated content is ready to be posted immediately without auxilliary information."
 
     user_input = `${prefix_instruction}\n${user_input}`;
 
