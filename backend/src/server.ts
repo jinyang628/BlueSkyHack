@@ -1,5 +1,10 @@
 import express, { Request, Response } from 'express';
 
+interface UserInput {
+  text: string;
+  score: number;
+}
+
 const app = express();
 const cors = require('cors');
 
@@ -22,24 +27,37 @@ app.get('/', (req, res) => {
     }
 });
 
-// POST creates new data ON the server
 app.post('/api/getScore', (req, res) => {
-  const user_input: string = req.body;
-  console.log(user_input);
-
-  // TODO: Get the score from inference side
-  const score = 10; 
-
-  // Store the record in our server
-  userInputScores[user_input] = score;
-
-  // Return the current score back to frontend 
-  res.status(201).send(score);
+  try {
+    const user_input: string = req.body;
+    console.log(user_input);
+  
+    // TODO: Get the score from inference side
+    const score = 10; 
+  
+    // Return the current score back to frontend 
+    res.status(201).send(score);
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
-app.post('/api/inference', (req, res) => {
-
+app.post('/api/makePost', (req, res) => {
+  try {
+    const userInput: UserInput = req.body;
+    // Store the record in our server
+    const input_text: string = userInput.text;
+    const score: number = userInput.score;
+    userInputScores[input_text] = score;
+    res.status(201).send("Successfully stored the user input in server!");
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
 });
+
+// app.post('/api/inference', (req, res) => {
+
+// });
 
 // PUT updates existing data on server ENTIRELY
 app.put('/api/items/:id', (req, res) => {

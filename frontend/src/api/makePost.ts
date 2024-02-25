@@ -1,6 +1,14 @@
 import { BskyAgent } from '@atproto/api'
+import axios from "axios";
 
-export default async function makePost(user_input: string) {
+const API_URL = "http://localhost:3000";
+
+interface UserInput {
+    text: string;
+    score: number;
+}
+
+export default async function makePost(userInput: UserInput) {
     const agent = new BskyAgent({
         service: 'https://bsky.social'
     })
@@ -10,8 +18,17 @@ export default async function makePost(user_input: string) {
         password: '&5cx^v4wO48m'
     })
     
+    const user_text: string = userInput.text
+
     await agent.post({
-        text: user_input,
+        text: user_text,
         createdAt: new Date().toISOString()
     })
+
+    await axios.post(
+        `${API_URL}/api/makePost`, 
+        {
+            userInput
+        },
+    );
 }
