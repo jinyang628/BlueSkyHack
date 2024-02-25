@@ -75,7 +75,7 @@ const App = () => {
         console.log("Post response:", response);
         // Handle response or success state here, such as resetting the form
         setShowCongrats(true);
-        setTimeout(() => setShowCongrats(false), 3000);
+        setTimeout(() => setShowCongrats(false), 5000);
       } catch (error) {
         console.error("Error making post:", error);
         setError("Error making post. Please try again.");
@@ -139,6 +139,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <TitleComponent />
+
       <Box
         style={{
           display: "flex", // Enable flexbox
@@ -149,7 +150,6 @@ const App = () => {
           minWidth: "100vw",
         }}
       >
-        <CongratsAnimation isVisible={showCongrats} />
         <Box
           sx={{
             flex: 1, // Allows this box to grow, taking up half the space
@@ -157,6 +157,8 @@ const App = () => {
             marginLeft: "10rem",
           }}
         >
+          <CongratsAnimation isVisible={showCongrats} />
+
           <div
             style={{
               display: "flex", // Enable flexbox
