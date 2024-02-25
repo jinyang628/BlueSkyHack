@@ -1,10 +1,8 @@
-
-
 function App() {
 
   return (
     <>
-      <text>hello aaron</text>
+      <>hello aaron</>
     </>
   )
 }
