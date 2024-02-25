@@ -13,6 +13,10 @@ const TextInput = ({ label, value, onChange }) => {
         fullWidth
         multiline
         rows={15}
+        inputProps={{
+          maxLength: 300 // Set maximum character length
+        }}
+        helperText={`${value.length}/300`} // Show current character count / max
         sx={{
           fontSize: "1.25rem",
           backgroundColor: "white", // Change the backgroundColor here
