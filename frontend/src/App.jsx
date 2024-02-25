@@ -8,6 +8,7 @@ import makePost from "./api/makePost";
 import getPostLeaderboard from "./api/getPostLeaderboard";
 import { callReplicate } from "./api/callReplicate";
 import { Typography } from "@mui/material";
+import { Box } from "@mui/system";
 
 // Create a theme instance
 const theme = createTheme({
@@ -103,70 +104,88 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <div
+      <Typography
+        variant="h1" // Adjusts the size according to the theme's typography scale
+        component="h1" // Semantic markup indicating this is the primary header
+        sx={{
+          color: "black", // Uses the primary color from the theme
+          margin: "4rem", // Adds margin above and below for spacing
+          fontWeight: "bold", // Makes the font weight bold
+          textAlign: "center", // Centers the text
+        }}
+      >
+        Virality
+      </Typography>
+      <Box
         style={{
           display: "flex", // Enable flexbox
           flexDirection: "row", // Stack children vertically
           justifyContent: "space-between", // Center children horizontally
           alignItems: "flex-start", // Center children vertically
+          height: "100vh", // Full viewport height
+          width: "100vw",
         }}
       >
-        <div
-          style={{
-            display: "flex", // Enable flexbox
-            flexDirection: "column", // Stack children vertically
-            alignItems: "center", // Center children vertically
-            minHeight: "100vh", // Full viewport height
+        <Box
+          sx={{
+            flex: 1, // Allows this box to grow, taking up half the space
+            p: 3, // Add padding for spacing from the edges
+            marginLeft: "10rem",
           }}
         >
-          <Container maxWidth="sm">
-            <Typography
-              variant="h1" // Adjusts the size according to the theme's typography scale
-              component="h1" // Semantic markup indicating this is the primary header
-              sx={{
-                color: "black", // Uses the primary color from the theme
-                margin: "4rem", // Adds margin above and below for spacing
-                fontWeight: "bold", // Makes the font weight bold
-                textAlign: "center", // Centers the text
-              }}
-            >
-              Virality
-            </Typography>
-            <TextInput
-              label="Type post here!"
-              variant="outlined"
-              fullWidth
-              value={inputText}
-              onChange={handleInputChange}
-            />
+          <div
+            style={{
+              display: "flex", // Enable flexbox
+              flexDirection: "column", // Stack children vertically
+              alignItems: "center", // Center children vertically
+              minHeight: "100vh", // Full viewport height
+            }}
+          >
+            <Container maxWidth="sm">
+              <TextInput
+                label="Type post here!"
+                variant="outlined"
+                fullWidth
+                value={inputText}
+                onChange={handleInputChange}
+              />
 
-            <ClickButton onClick={handleScore}>Get Score</ClickButton>
-            <ClickButton onClick={handlePost}>Post</ClickButton>
-            <ClickButton onClick={handleLeaderboard}>
-              Get Leaderboard
-            </ClickButton>
-            <ClickButton onClick={handleGenerate}>
-              Help me Replicate!
-            </ClickButton>
-            {score && <p>Score: {score.score}</p>}
+              <ClickButton onClick={handleScore}>Get Score</ClickButton>
+              <ClickButton onClick={handlePost}>Post</ClickButton>
+              <ClickButton onClick={handleLeaderboard}>
+                Get Leaderboard
+              </ClickButton>
+              <ClickButton onClick={handleGenerate}>
+                Help me Replicate!
+              </ClickButton>
+              {score && <p>Score: {score.score}</p>}
 
-            {error && <p>Error: {error}</p>}
-          </Container>
-        </div>
-        {leaderboard && (
-          <div>
-            <h3>Your Leaderboard:</h3>
-            <ul>
-              {Object.entries(leaderboard).map(([name, score], index) => (
-                <li key={index}>
-                  <div>Post: {name}</div>
-                  <div>Score: {score}</div>
-                </li>
-              ))}
-            </ul>
+              {error && <p>Error: {error}</p>}
+            </Container>
           </div>
-        )}
-      </div>
+        </Box>
+
+        <Box
+          sx={{
+            flex: 1, // Allows this box to grow, taking up half the space
+            p: 3, // Add padding for spacing from the edges
+          }}
+        >
+          {leaderboard && (
+            <div>
+              <h3>Your Leaderboard:</h3>
+              <ul>
+                {Object.entries(leaderboard).map(([name, score], index) => (
+                  <li key={index}>
+                    <div>Post: {name}</div>
+                    <div>Score: {score}</div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </Box>
+      </Box>
     </ThemeProvider>
   );
 };
