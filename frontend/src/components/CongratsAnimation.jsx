@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import PropTypes from "prop-types";
 
 const CongratsAnimation = ({ isVisible }) => {
   if (!isVisible) return null;
@@ -42,6 +43,10 @@ const CongratsAnimation = ({ isVisible }) => {
       </div>
     </motion.div>
   );
+};
+
+CongratsAnimation.propTypes = {
+  isVisible: PropTypes.bool.isRequired, // Define isVisible as a required boolean prop
 };
 
 export default CongratsAnimation;

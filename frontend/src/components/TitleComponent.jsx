@@ -17,18 +17,18 @@ const TitleComponent = () => {
       </Typography>
       <Typography
         variant="h5"
-        component="h5" 
+        component="h5"
         sx={{
           color: "black",
           fontWeight: "bold",
           textAlign: "center",
         }}
       >
-        🎉 Your fame is our mission 🎉 
+        🎉 Your fame is our mission 🎉
       </Typography>
       <Typography
         variant="h5"
-        component="h5" 
+        component="h5"
         sx={{
           color: "black",
           margin: "1rem",
@@ -36,7 +36,7 @@ const TitleComponent = () => {
           textAlign: "center",
         }}
       >
-        👄 Your vanity, our tradition 👄 
+        👄 Your vanity, our tradition 👄
       </Typography>
     </>
   );

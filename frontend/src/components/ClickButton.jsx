@@ -1,4 +1,5 @@
 import Button from "@mui/material/Button";
+import PropTypes from "prop-types";
 
 const ClickButton = ({ onClick, children }) => {
   return (
@@ -14,6 +15,11 @@ const ClickButton = ({ onClick, children }) => {
       {children}
     </Button>
   );
+};
+
+ClickButton.propTypes = {
+  onClick: PropTypes.func.isRequired, // onClick is a function and is required
+  children: PropTypes.node.isRequired, // children can be anything that can be rendered: numbers, strings, elements or an array (or fragment) containing these types.
 };
 
 export default ClickButton;

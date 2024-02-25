@@ -1,4 +1,5 @@
 import TextField from "@mui/material/TextField";
+import PropTypes from "prop-types";
 
 const TextInput = ({ label, value, onChange }) => {
   return (
@@ -14,7 +15,7 @@ const TextInput = ({ label, value, onChange }) => {
         multiline
         rows={15}
         inputProps={{
-          maxLength: 300 // Set maximum character length
+          maxLength: 300, // Set maximum character length
         }}
         helperText={`${value.length}/300`} // Show current character count / max
         sx={{
@@ -25,6 +26,12 @@ const TextInput = ({ label, value, onChange }) => {
       />
     </div>
   );
+};
+
+TextInput.propTypes = {
+  label: PropTypes.string, // label is a string
+  value: PropTypes.string.isRequired, // value is a string and is required
+  onChange: PropTypes.func.isRequired, // onChange is a function and is required
 };
 
 export default TextInput;
