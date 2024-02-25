@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Container, CssBaseline } from "@mui/material";
+import { Container, CssBaseline, Button, Menu, MenuItem } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TextInput from "./components/Input";
 import ClickButton from "./components/ClickButton";
@@ -36,6 +36,16 @@ const App = () => {
   const [error, setError] = useState(null);
   const [leaderboard, setLeaderboard] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleScore = async () => {
     try {
@@ -99,7 +109,7 @@ const App = () => {
       setIsLoading(false); // Stop loading in case of an error
       setError("Error generating. Please try again.");
     }
-  }
+  };
 
   const handleParaphrase = async () => {
     try {
@@ -158,22 +168,31 @@ const App = () => {
               />
 
               <ClickButton onClick={handleScore}>Get Score</ClickButton>
-              <ClickButton onClick={handlePost}>Post</ClickButton>
               <ClickButton onClick={handleLeaderboard}>
-                Get Leaderboard
+                My Leaderboard
               </ClickButton>
-              <ClickButton onClick={handleCreate}>
-                Generate for me Replicate!
-              </ClickButton>
-              <ClickButton onClick={handleParaphrase}>
-                Paraphrase for me Replicate!
-              </ClickButton>
-              {isLoading && (
-              <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                <CircularProgress />
+              <ClickButton onClick={handleOpen}>AI Magic</ClickButton>
+              <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+                <MenuItem onClick={handleCreate}>Generate for me</MenuItem>
+                <MenuItem onClick={handleParaphrase}>
+                  Paraphrase for me
+                </MenuItem>
+              </Menu>
+              <div>
+                <ClickButton onClick={handlePost}>Post!</ClickButton>
               </div>
-            )}
-            {score && <p>Score: {score.score}</p>}
+              {isLoading && (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <CircularProgress />
+                </div>
+              )}
+              {score && <p>Score: {score.score}</p>}
 
               {error && <p>Error: {error}</p>}
             </Container>
@@ -191,7 +210,10 @@ const App = () => {
               <h3>Your Leaderboard:</h3>
               <ul>
                 {Object.entries(leaderboard).map(([name, score], index) => (
-                  <li key={index}>
+                  <li
+                    key={index}
+                    style={{ marginBottom: "10px", marginRight: "10px" }}
+                  >
                     <div>Post: {name}</div>
                     <div>Score: {score}</div>
                   </li>

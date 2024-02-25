@@ -16,7 +16,9 @@ app.use(express.json());
 app.use(cors());
 
 let userInputScores: { [key: string]: number } = {
-  "Aaron and Samuel are the best hackathon teammates in the world!": 10,
+  "Aaron and Samuel are the best hackathon teammates in the world!": 8.3,
+  "Make something people want": 9.7,
+  "HOLY SHI- BLUESKY IS FRICKIN AWESOMEEEEEEEE 🔥🔥🔥": 1000000,
 };
 
 const server_check: string = "Server is running properly";
@@ -32,7 +34,7 @@ app.get("/", (req, res) => {
 app.post("/api/getScore", (req, res) => {
   try {
     const user_input: string = req.body;
-    
+
     // TODO: Get the score from inference side
     const score = 10;
 
@@ -91,8 +93,6 @@ app.post("/api/createReplicate", async (req, res) => {
 // app.post('/api/inference', (req, res) => {
 
 // });
-
-
 
 // // DELETE deletes data from the server
 // app.delete("/api/items/:id", (req, res) => {
