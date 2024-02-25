@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import callReplicate from "./replicate";
+import paraphraseReplicate from "./replicate";
 
 interface UserInput {
   text: string;
@@ -68,10 +68,10 @@ app.get("/api/getPostLeaderboard", (req, res) => {
   }
 });
 
-app.post("/api/callReplicate", async (req, res) => {
+app.post("/api/paraphraseReplicate", async (req, res) => {
   try {
     const user_input: string = req.body.userInput;
-    const better_input: string = await callReplicate(user_input);
+    const better_input: string = await paraphraseReplicate(user_input);
     res.status(200).json(better_input);
   } catch (error: any) {
     res.status(500).json({ message: error.message });

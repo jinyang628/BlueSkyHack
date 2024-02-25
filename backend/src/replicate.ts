@@ -1,11 +1,11 @@
 import Replicate from "replicate";
 
-export default async function callReplicate(user_input: string) {
+export default async function paraphraseReplicate(user_input: string) {
     const replicate = new Replicate({
         auth: process.env.REPLICATE_API_TOKEN,
     });
 
-    const prefix_instruction: string = "Rephrase this social media post to be more engaging! I want to be famous!"
+    const prefix_instruction: string = "Rephrase this social media post to be more engaging - I want to be famous! Make sure that the paraphrased content stays true to the original input."
 
     user_input = `${prefix_instruction}\n${user_input}`;
 

@@ -6,8 +6,10 @@ import ClickButton from "./components/ClickButton";
 import getScore from "./api/getScore";
 import makePost from "./api/makePost";
 import getPostLeaderboard from "./api/getPostLeaderboard";
-import { callReplicate } from "./api/callReplicate";
+import { paraphraseReplicate } from "./api/paraphraseReplicate";
 import { Typography } from "@mui/material";
+import { CircularProgress } from "@mui/material";
+
 
 // Create a theme instance
 const theme = createTheme({
@@ -33,6 +35,8 @@ const App = () => {
   const [score, setScore] = useState(null);
   const [error, setError] = useState(null);
   const [leaderboard, setLeaderboard] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
 
   const handleScore = async () => {
     try {
@@ -87,11 +91,14 @@ const App = () => {
 
   const handleGenerate = async () => {
     try {
-      const response = await callReplicate(inputText);
+      setIsLoading(true); // Start loading
+      const response = await paraphraseReplicate(inputText);
       setInputText(response);
+      setIsLoading(false); // Stop loading when the request is completed
       setError(null);
     } catch (error) {
       console.error("Error generating:", error);
+      setIsLoading(false); // Stop loading in case of an error
       setError("Error generating. Please try again.");
     }
   };
@@ -148,6 +155,11 @@ const App = () => {
             <ClickButton onClick={handleGenerate}>
               Help me Replicate!
             </ClickButton>
+            {isLoading && (
+              <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <CircularProgress />
+              </div>
+            )}
             {score && <p>Score: {score.score}</p>}
 
             {error && <p>Error: {error}</p>}
