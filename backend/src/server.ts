@@ -13,14 +13,15 @@ const port = 3000;
 app.use(express.json());
 app.use(cors());
 
-const userInputScores: { [key: string]: number } = {};
+const userInputScores: { [key: string]: number } = {
+  "Aaron and Samuel are the best hackathon teammates in the world!": 10,
+};
 
-const data: string = "Server is running properly";
+const server_check: string = "Server is running properly";
 
-// GET retrieves data FROM the server (TESTING function, delete later)
 app.get("/", (req, res) => {
   try {
-    res.status(200).json(data);
+    res.status(200).json(server_check);
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }
@@ -35,7 +36,7 @@ app.post("/api/getScore", (req, res) => {
     const score = 10;
 
     // Return the current score back to frontend
-    res.status(201).send(score);
+    res.status(201).json({ score });
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }
@@ -48,7 +49,9 @@ app.post("/api/makePost", (req, res) => {
     const input_text: string = userInput.text;
     const score: number = userInput.score;
     userInputScores[input_text] = score;
-    res.status(201).send("Successfully stored the user input in server!");
+    const successMessage: string =
+      "Successfully stored the user input in server!";
+    res.status(201).json({ successMessage });
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }
