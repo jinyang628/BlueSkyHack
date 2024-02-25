@@ -108,7 +108,8 @@ const App = () => {
 
   const handleCreate = async () => {
     try {
-      const userInstruction = "I need your help to make a social media post. Make it as engaging as possible - I want to be famous! Keep the content within 300 characters. Make sure the generated content is ready to be posted immediately without auxilliary information.";
+      const userInstruction =
+        "I need your help to make a social media post. Make it as engaging as possible - I want to be famous! Keep the content within 300 characters. Make sure the generated content is ready to be posted immediately without auxilliary information.";
       setIsLoading(true); // Start loading
       const response = await createReplicate(userInstruction);
       console.log(response);
@@ -153,6 +154,7 @@ const App = () => {
           alignItems: "flex-start", // Center children vertically
           minHeight: "100vh",
           minWidth: "100vw",
+          marginTop: "2rem",
         }}
       >
         <Box
