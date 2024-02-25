@@ -4,6 +4,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TextInput from "./components/Input";
 import ClickButton from "./components/ClickButton";
 import { getScore } from "./api/getScore";
+import { getPostLeaderboard } from "./api/getPostLeaderboard";
 
 // Create a theme instance
 const theme = createTheme({

@@ -13,7 +13,7 @@ const port = 3000;
 app.use(express.json())
 app.use(cors());
 
-const userInputScores: { [key: string]: number } = {};
+const userInputScores: { [key: string]: number } = {"Aaron and Samuel are the best hackathon teammates in the world!": 10};
 
 const server_check: string = "Server is running properly"
 
