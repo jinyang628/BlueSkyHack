@@ -8,7 +8,6 @@ import makePost from "./api/makePost";
 import getPostLeaderboard from "./api/getPostLeaderboard";
 import { paraphraseReplicate } from "./api/paraphraseReplicate";
 import { createReplicate } from "./api/createReplicate";
-import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { CircularProgress } from "@mui/material";
 import TitleComponent from "./components/TitleComponent";
@@ -28,7 +27,6 @@ const theme = createTheme({
       fontWeight: 600, // Example weight adjustment
       // Add more properties as needed
     },
-    // Other typography variants can be customized here as well
   },
 });
 
@@ -90,8 +88,9 @@ const App = () => {
 
   const handleCreate = async () => {
     try {
+      const userInstruction = "I need your help to make a social media post. Make it as engaging as possible - I want to be famous!";
       setIsLoading(true); // Start loading
-      const response = await createReplicate(inputText);
+      const response = await createReplicate(userInstruction);
       setInputText(response);
       setIsLoading(false); // Stop loading when the request is completed
       setError(null);

@@ -1,12 +1,10 @@
 import Replicate from "replicate";
 
 
-export default async function createReplicate() {
+export default async function createReplicate(instruction: string) {
     const replicate = new Replicate({
         auth: process.env.REPLICATE_API_TOKEN,
     });
-
-    const instruction: string = "I need your help to make a social media post. Make it as engaging as possible - I want to be famous!";
 
     const input = {
         top_k: 50,
