@@ -13,7 +13,7 @@ const port = 3000;
 app.use(express.json());
 app.use(cors());
 
-const userInputScores: { [key: string]: number } = {
+let userInputScores: { [key: string]: number } = {
   "Aaron and Samuel are the best hackathon teammates in the world!": 10,
 };
 
@@ -45,13 +45,16 @@ app.post("/api/getScore", (req, res) => {
 app.post("/api/makePost", (req, res) => {
   try {
     const userInput: UserInput = req.body;
+    console.log("userInput", userInput);
     // Store the record in our server
-    const input_text: string = userInput.text;
-    const score: number = userInput.score;
-    userInputScores[input_text] = score;
+    const { text, score } = req.body.userInput;
+    console.log(text, score);
+    userInputScores[text] = score;
     const successMessage: string =
       "Successfully stored the user input in server!";
     res.status(201).json({ successMessage });
+    console.log("userinputscores", userInputScores);
+    console.log(successMessage);
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }

@@ -6,13 +6,24 @@ import ClickButton from "./components/ClickButton";
 import getScore from "./api/getScore";
 import makePost from "./api/makePost";
 import getPostLeaderboard from "./api/getPostLeaderboard";
+import { Typography } from "@mui/material";
 
 // Create a theme instance
 const theme = createTheme({
   palette: {
     background: {
-      default: "blue", // This sets the background color for the entire app
+      default: "#1DA1F2",
     },
+    // Consider adding a primary or secondary color here if needed
+  },
+  typography: {
+    // Customize the typography as needed
+    h1: {
+      fontSize: "2.125rem", // Example size adjustment
+      fontWeight: 600, // Example weight adjustment
+      // Add more properties as needed
+    },
+    // Other typography variants can be customized here as well
   },
 });
 
@@ -47,6 +58,7 @@ const App = () => {
 
         // Call makePost with the constructed userInput object
         const response = await makePost(userInput);
+        console.log("Post response:", response);
         // Handle response or success state here, such as resetting the form
       } catch (error) {
         console.error("Error making post:", error);
@@ -64,6 +76,7 @@ const App = () => {
     try {
       const response = await getPostLeaderboard();
       setLeaderboard(response.data);
+      console.log("Leaderboard:", response.data);
       setError(null);
     } catch (error) {
       console.error("Error fetching leaderboard:", error);
@@ -91,40 +104,66 @@ const App = () => {
       <div
         style={{
           display: "flex", // Enable flexbox
-          justifyContent: "center", // Center children horizontally
-          alignItems: "center", // Center children vertically
-          minHeight: "100vh", // Full viewport height
-          backgroundColor: "blue", // Add a background color
+          flexDirection: "row", // Stack children vertically
+          justifyContent: "space-between", // Center children horizontally
+          alignItems: "flex-start", // Center children vertically
         }}
       >
-        <Container maxWidth="sm">
-          <TextInput
-            label="Type post here!"
-            variant="outlined"
-            fullWidth
-            value={inputText}
-            onChange={handleInputChange}
-          />
-          <ClickButton onClick={handleScore}>Get Score</ClickButton>
-          <ClickButton onClick={handlePost}>Post</ClickButton>
-          <ClickButton onClick={handleLeaderboard}>Get Leaderboard</ClickButton>
-          <ClickButton onClick={handleGenerate}>Help me Replicate!</ClickButton>
-          {score && <p>Score: {score.score}</p>}
-          {leaderboard && (
-            <div>
-              <h3>Leaderboard:</h3>
-              <ul>
-                {Object.entries(leaderboard).map(([name, score], index) => (
-                  <li key={index}>
-                    {name}: {score}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+        <div
+          style={{
+            display: "flex", // Enable flexbox
+            flexDirection: "column", // Stack children vertically
+            alignItems: "center", // Center children vertically
+            minHeight: "100vh", // Full viewport height
+          }}
+        >
+          <Container maxWidth="sm">
+            <Typography
+              variant="h1" // Adjusts the size according to the theme's typography scale
+              component="h1" // Semantic markup indicating this is the primary header
+              sx={{
+                color: "black", // Uses the primary color from the theme
+                margin: "4rem", // Adds margin above and below for spacing
+                fontWeight: "bold", // Makes the font weight bold
+                textAlign: "center", // Centers the text
+              }}
+            >
+              Virality
+            </Typography>
+            <TextInput
+              label="Type post here!"
+              variant="outlined"
+              fullWidth
+              value={inputText}
+              onChange={handleInputChange}
+            />
 
-          {error && <p>Error: {error}</p>}
-        </Container>
+            <ClickButton onClick={handleScore}>Get Score</ClickButton>
+            <ClickButton onClick={handlePost}>Post</ClickButton>
+            <ClickButton onClick={handleLeaderboard}>
+              Get Leaderboard
+            </ClickButton>
+            <ClickButton onClick={handleGenerate}>
+              Help me Replicate!
+            </ClickButton>
+            {score && <p>Score: {score.score}</p>}
+
+            {error && <p>Error: {error}</p>}
+          </Container>
+        </div>
+        {leaderboard && (
+          <div>
+            <h3>Your Leaderboard:</h3>
+            <ul>
+              {Object.entries(leaderboard).map(([name, score], index) => (
+                <li key={index}>
+                  <div>Post: {name}</div>
+                  <div>Score: {score}</div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </ThemeProvider>
   );
