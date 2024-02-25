@@ -15,13 +15,11 @@ app.use(cors());
 
 const userInputScores: { [key: string]: number } = {};
 
-const data: string = "Server is running properly"
+const server_check: string = "Server is running properly"
 
-
-// GET retrieves data FROM the server (TESTING function, delete later)
 app.get('/', (req, res) => {
     try {
-        res.status(200).json(data);
+        res.status(200).json(server_check);
     } catch (error: any) {
         res.status(500).json({ message: error.message });
     }
