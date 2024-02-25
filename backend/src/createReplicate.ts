@@ -22,7 +22,6 @@ export default async function createReplicate(userInstruction: string) {
     "mistralai/mixtral-8x7b-instruct-v0.1",
     { input }
   )) {
-    console.log("error arrives here");
     response += event.toString();
   }
 
