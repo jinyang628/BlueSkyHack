@@ -6,6 +6,7 @@ import ClickButton from "./components/ClickButton";
 import getScore from "./api/getScore";
 import makePost from "./api/makePost";
 import getPostLeaderboard from "./api/getPostLeaderboard";
+import { callReplicate } from "./api/callReplicate";
 
 // Create a theme instance
 const theme = createTheme({
@@ -73,7 +74,8 @@ const App = () => {
 
   const handleGenerate = async () => {
     try {
-      console.log("Generating...");
+      const response = await callReplicate(inputText);
+      setInputText(response);
       setError(null);
     } catch (error) {
       console.error("Error generating:", error);
