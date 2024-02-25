@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
-import paraphraseReplicate from "./replicate";
+import paraphraseReplicate from "./paraphraseReplicate";
+import createReplicate from "./createReplicate";
 
 interface UserInput {
   text: string;
@@ -73,6 +74,15 @@ app.post("/api/paraphraseReplicate", async (req, res) => {
     const user_input: string = req.body.userInput;
     const better_input: string = await paraphraseReplicate(user_input);
     res.status(200).json(better_input);
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+app.post("/api/createReplicate", async (req, res) => {
+  try {
+    const proposed_input: string = await createReplicate();
+    res.status(200).json(proposed_input);
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }
