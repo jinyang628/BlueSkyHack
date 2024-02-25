@@ -7,7 +7,7 @@ const TextInput = ({ label, value, onChange }) => {
       {/* Flex container */}
       <TextField
         label={label} // Label text for the input
-        variant="outlined" // Style variant, "outlined" in this case
+        variant="filled" // Style variant, "outlined" in this case
         value={value} // Controlled value
         onChange={onChange} // Handler to update the value
         fullWidth
@@ -18,10 +18,8 @@ const TextInput = ({ label, value, onChange }) => {
         }}
         helperText={`${value.length}/300`} // Show current character count / max
         sx={{
-          "& .MuiOutlinedInput-root": {
-            fontSize: "1.25rem",
-            backgroundColor: "white", // Change the backgroundColor here
-          },
+          fontSize: "1.25rem",
+          backgroundColor: "white", // Change the backgroundColor here
         }}
         size="large"
       />

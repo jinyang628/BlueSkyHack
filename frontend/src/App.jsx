@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Container, CssBaseline } from "@mui/material";
+import { Container, CssBaseline, Button, Menu, MenuItem } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TextInput from "./components/Input";
 import ClickButton from "./components/ClickButton";
@@ -38,7 +38,16 @@ const App = () => {
   const [leaderboard, setLeaderboard] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showCongrats, setShowCongrats] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
 
+  const handleOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleScore = async () => {
     try {
@@ -66,7 +75,7 @@ const App = () => {
         console.log("Post response:", response);
         // Handle response or success state here, such as resetting the form
         setShowCongrats(true);
-        setTimeout(() => setShowCongrats(false), 3000);
+        setTimeout(() => setShowCongrats(false), 5000);
       } catch (error) {
         console.error("Error making post:", error);
         setError("Error making post. Please try again.");
@@ -96,6 +105,7 @@ const App = () => {
       const userInstruction = "I need your help to make a social media post. Make it as engaging as possible - I want to be famous! Keep the content within 300 characters.";
       setIsLoading(true); // Start loading
       const response = await createReplicate(userInstruction);
+      console.log(response);
       setInputText(response);
       setIsLoading(false); // Stop loading when the request is completed
       setError(null);
@@ -104,7 +114,7 @@ const App = () => {
       setIsLoading(false); // Stop loading in case of an error
       setError("Error generating. Please try again.");
     }
-  }
+  };
 
   const handleParaphrase = async () => {
     try {
@@ -128,17 +138,17 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <TitleComponent />
+
       <Box
         style={{
           display: "flex", // Enable flexbox
           flexDirection: "row", // Stack children vertically
           justifyContent: "space-between", // Center children horizontally
           alignItems: "flex-start", // Center children vertically
-          height: "100vh", // Full viewport height
-          width: "100vw",
+          minHeight: "100vh",
+          minWidth: "100vw",
         }}
       >
-        <CongratsAnimation isVisible={showCongrats} />
         <Box
           sx={{
             flex: 1, // Allows this box to grow, taking up half the space
@@ -146,6 +156,8 @@ const App = () => {
             marginLeft: "10rem",
           }}
         >
+          <CongratsAnimation isVisible={showCongrats} />
+
           <div
             style={{
               display: "flex", // Enable flexbox
@@ -164,22 +176,31 @@ const App = () => {
               />
 
               <ClickButton onClick={handleScore}>Get Score</ClickButton>
-              <ClickButton onClick={handlePost}>Post</ClickButton>
               <ClickButton onClick={handleLeaderboard}>
-                Get Leaderboard
+                My Leaderboard
               </ClickButton>
-              <ClickButton onClick={handleCreate}>
-                Generate for me Replicate!
-              </ClickButton>
-              <ClickButton onClick={handleParaphrase}>
-                Paraphrase for me Replicate!
-              </ClickButton>
-              {isLoading && (
-              <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                <CircularProgress />
+              <ClickButton onClick={handleOpen}>AI Magic</ClickButton>
+              <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+                <MenuItem onClick={handleCreate}>Generate for me</MenuItem>
+                <MenuItem onClick={handleParaphrase}>
+                  Paraphrase for me
+                </MenuItem>
+              </Menu>
+              <div>
+                <ClickButton onClick={handlePost}>Post!</ClickButton>
               </div>
-            )}
-            {score && <p>Score: {score.score}</p>}
+              {isLoading && (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <CircularProgress />
+                </div>
+              )}
+              {score && <p>Score: {score.score}</p>}
 
               {error && <p>Error: {error}</p>}
             </Container>
@@ -197,7 +218,10 @@ const App = () => {
               <h3>Your Leaderboard:</h3>
               <ul>
                 {Object.entries(leaderboard).map(([name, score], index) => (
-                  <li key={index}>
+                  <li
+                    key={index}
+                    style={{ marginBottom: "10px", marginRight: "10px" }}
+                  >
                     <div>Post: {name}</div>
                     <div>Score: {score}</div>
                   </li>
