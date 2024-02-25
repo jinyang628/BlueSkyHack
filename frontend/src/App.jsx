@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { Container, CssBaseline, Menu, MenuItem } from "@mui/material";
+import {
+  Container,
+  CssBaseline,
+  Menu,
+  MenuItem,
+  CircularProgress,
+} from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TextInput from "./components/Input";
 import ClickButton from "./components/ClickButton";
@@ -9,9 +15,9 @@ import getPostLeaderboard from "./api/getPostLeaderboard";
 import { paraphraseReplicate } from "./api/paraphraseReplicate";
 import { createReplicate } from "./api/createReplicate";
 import { Box } from "@mui/system";
-import { CircularProgress } from "@mui/material";
 import TitleComponent from "./components/TitleComponent";
 import CongratsAnimation from "./components/CongratsAnimation";
+import Leaderboard from "./components/Leaderboard";
 
 // Create a theme instance
 const theme = createTheme({
@@ -207,7 +213,6 @@ const App = () => {
             </Container>
           </div>
         </Box>
-
         <Box
           sx={{
             flex: 1, // Allows this box to grow, taking up half the space
@@ -216,18 +221,7 @@ const App = () => {
         >
           {leaderboard && (
             <div>
-              <h3>Your Leaderboard:</h3>
-              <ul>
-                {Object.entries(leaderboard).map(([name, score], index) => (
-                  <li
-                    key={index}
-                    style={{ marginBottom: "10px", marginRight: "10px" }}
-                  >
-                    <div>Post: {name}</div>
-                    <div>Score: {score}</div>
-                  </li>
-                ))}
-              </ul>
+              <Leaderboard leaderboard={leaderboard} />
             </div>
           )}
         </Box>
