@@ -1,5 +1,4 @@
 import express, { Request, Response } from 'express';
-import getPopularFeeds from './app/page';
 
 const app = express();
 const cors = require('cors');
@@ -9,11 +8,11 @@ const port = 3000;
 app.use(express.json())
 app.use(cors());
 
+const data: string = "teddst"
+
 // GET retrieves data FROM the server
 app.get('/', (req, res) => {
     try {
-        const data = getPopularFeeds()
-        console.log(data)
         res.status(200).json(data);
     } catch (error: any) {
         res.status(500).json({ message: error.message });
