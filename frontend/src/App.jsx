@@ -41,6 +41,17 @@ const App = () => {
     }
   };
 
+  const handleLeaderboard = async () => {
+    try {
+      const response = await getScore(inputText);
+      setScore(response.data);
+      setError(null);
+    } catch (error) {
+      console.error("Error fetching score:", error);
+      setError("Error fetching score. Please try again.");
+    }
+  };
+
   const handleInputChange = (event) => {
     setInputText(event.target.value);
   };
@@ -67,6 +78,7 @@ const App = () => {
           />
           <ClickButton onClick={handleScore}>Get Score</ClickButton>
           <ClickButton onClick={handlePost}>Post</ClickButton>
+          <ClickButton onClick={handleLeaderboard}>Get Leaderboard</ClickButton>
           {score && <p>Score: {score}</p>}
           {error && <p>Error: {error}</p>}
         </Container>
