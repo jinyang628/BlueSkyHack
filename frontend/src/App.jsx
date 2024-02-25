@@ -11,6 +11,7 @@ import { createReplicate } from "./api/createReplicate";
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { CircularProgress } from "@mui/material";
+import TitleComponent from "./components/TitleComponent";
 
 // Create a theme instance
 const theme = createTheme({
@@ -121,18 +122,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Typography
-        variant="h1" // Adjusts the size according to the theme's typography scale
-        component="h1" // Semantic markup indicating this is the primary header
-        sx={{
-          color: "black", // Uses the primary color from the theme
-          margin: "4rem", // Adds margin above and below for spacing
-          fontWeight: "bold", // Makes the font weight bold
-          textAlign: "center", // Centers the text
-        }}
-      >
-        Virality
-      </Typography>
+      <TitleComponent />
       <Box
         style={{
           display: "flex", // Enable flexbox

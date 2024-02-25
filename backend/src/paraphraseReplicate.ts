@@ -19,8 +19,6 @@ export default async function paraphraseReplicate(user_input: string) {
         presence_penalty: 0,
         frequency_penalty: 0
     };
-
-    console.log(input)
     
     let response = '';
     for await (const event of replicate.stream("mistralai/mixtral-8x7b-instruct-v0.1", { input })) {
