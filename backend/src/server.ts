@@ -20,11 +20,16 @@ app.get('/', (req, res) => {
 });
 
 // POST creates new data ON the server
-app.post('/api/items', (req, res) => {
-  // Logic to add a new item
-  // Use req.body to access posted data
-  console.log(req.body);
-  res.status(201).send('Item created');
+app.post('/api/getScore', (req, res) => {
+  const user_input: string = req.body;
+  console.log(user_input);
+
+  // TODO: Dummy data 10. replace with actual result from ml model
+  res.status(201).send(10);
+});
+
+app.post('/api/rate_user_input', (req, res) => {
+
 });
 
 // PUT updates existing data on server ENTIRELY
