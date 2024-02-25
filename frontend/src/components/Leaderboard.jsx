@@ -9,7 +9,7 @@ const Leaderboard = ({ leaderboard }) => {
 
   return (
     <div>
-      <h3>Your Leaderboard:</h3>
+      <h3>Hall of Fame:</h3>
       <ul>
         {Object.entries(leaderboard).map(([name, score], index) => (
           <li key={index} style={{ marginBottom: "10px", marginRight: "10px" }}>

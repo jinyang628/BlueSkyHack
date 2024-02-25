@@ -185,7 +185,7 @@ const App = () => {
 
               <ClickButton onClick={handleScore}>Get Score</ClickButton>
               <ClickButton onClick={handleLeaderboard}>
-                My Leaderboard
+                My Hall of Fame
               </ClickButton>
               <ClickButton onClick={handleOpen}>AI Magic</ClickButton>
               <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
