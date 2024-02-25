@@ -8,7 +8,10 @@ const port = 3000;
 app.use(express.json())
 app.use(cors());
 
+const userInputScores: { [key: string]: number } = {};
+
 const data: string = "teddst"
+
 
 // GET retrieves data FROM the server
 app.get('/', (req, res) => {
@@ -24,12 +27,18 @@ app.post('/api/getScore', (req, res) => {
   const user_input: string = req.body;
   console.log(user_input);
 
-  // TODO: Dummy data 10. replace with actual result from ml model
-  res.status(201).send(10);
+  // TODO: Get the score from inference side
+  const score = 10; 
+
+  // Store the record in our server
+  userInputScores[user_input] = score;
+
+  // Return the current score back to frontend 
+  res.status(201).send(score);
 });
 
 app.post('/api/inference', (req, res) => {
-    
+
 });
 
 // PUT updates existing data on server ENTIRELY
