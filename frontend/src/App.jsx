@@ -4,6 +4,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TextInput from "./components/Input";
 import ClickButton from "./components/ClickButton";
 import { getScore } from "./api/getScore";
+import makePost from "./api/makePost";
 import { getPostLeaderboard } from "./api/getPostLeaderboard";
 
 // Create a theme instance
@@ -32,6 +33,17 @@ const App = () => {
   };
 
   const handlePost = async () => {
+    try {
+      const response = await makePost(inputText);
+      console.log("Post", response);
+      return response;
+    } catch (error) {
+      console.error("Error fetching score:", error);
+      setError("Error fetching score. Please try again.");
+    }
+  };
+
+  const handleLeaderboard = async () => {
     try {
       const response = await getScore(inputText);
       setScore(response.data);
@@ -68,7 +80,8 @@ const App = () => {
           />
           <ClickButton onClick={handleScore}>Get Score</ClickButton>
           <ClickButton onClick={handlePost}>Post</ClickButton>
-          {score && <p>Score: {score}</p>}
+          <ClickButton onClick={handleLeaderboard}>Get Leaderboard</ClickButton>
+          {score && <p>Score: {score.score}</p>}
           {error && <p>Error: {error}</p>}
         </Container>
       </div>
