@@ -83,7 +83,9 @@ app.post("/api/paraphraseReplicate", async (req, res) => {
 
 app.post("/api/createReplicate", async (req, res) => {
   try {
-    const proposed_input: string = await createReplicate(req.body.userInstruction);
+    const proposed_input: string = await createReplicate(
+      req.body.userInstruction
+    );
     res.status(200).json(proposed_input);
   } catch (error: any) {
     res.status(500).json({ message: error.message });

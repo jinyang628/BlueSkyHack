@@ -98,9 +98,11 @@ const App = () => {
 
   const handleCreate = async () => {
     try {
-      const userInstruction = "I need your help to make a social media post. Make it as engaging as possible - I want to be famous!";
+      const userInstruction =
+        "I need your help to make a social media post. Make it as engaging as possible - I want to be famous!";
       setIsLoading(true); // Start loading
       const response = await createReplicate(userInstruction);
+      console.log(response);
       setInputText(response);
       setIsLoading(false); // Stop loading when the request is completed
       setError(null);
