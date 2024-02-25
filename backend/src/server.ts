@@ -15,6 +15,8 @@ app.use(cors());
 
 const userInputScores: { [key: string]: number } = {"Aaron and Samuel are the best hackathon teammates in the world!": 10};
 
+
+
 const server_check: string = "Server is running properly"
 
 app.get('/', (req, res) => {
@@ -28,7 +30,6 @@ app.get('/', (req, res) => {
 app.post('/api/getScore', (req, res) => {
   try {
     const user_input: string = req.body;
-    console.log(user_input);
   
     // TODO: Get the score from inference side
     const score = 10; 
