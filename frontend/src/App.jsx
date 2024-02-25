@@ -2,6 +2,7 @@ import { Container, CssBaseline } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TextInput from "./components/Input";
 import ClickButton from "./components/ClickButton";
+import { getPostLeaderboard } from "./api/getPostLeaderboard";
 
 // Create a theme instance
 const theme = createTheme({
@@ -32,6 +33,9 @@ const App = () => {
           </ClickButton>
           <ClickButton onClick={() => console.log("Button clicked")}>
             Post
+          </ClickButton>
+          <ClickButton onClick={() => getPostLeaderboard()}>
+            Vanity Leaderboard
           </ClickButton>
         </Container>
       </div>
