@@ -11,6 +11,7 @@ import { createReplicate } from "./api/createReplicate";
 import { Box } from "@mui/system";
 import { CircularProgress } from "@mui/material";
 import TitleComponent from "./components/TitleComponent";
+import CongratsAnimation from "./components/CongratsAnimation";
 
 // Create a theme instance
 const theme = createTheme({
@@ -36,6 +37,8 @@ const App = () => {
   const [error, setError] = useState(null);
   const [leaderboard, setLeaderboard] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [showCongrats, setShowCongrats] = useState(false);
+
 
   const handleScore = async () => {
     try {
@@ -62,6 +65,8 @@ const App = () => {
         const response = await makePost(userInput);
         console.log("Post response:", response);
         // Handle response or success state here, such as resetting the form
+        setShowCongrats(true);
+        setTimeout(() => setShowCongrats(false), 3000);
       } catch (error) {
         console.error("Error making post:", error);
         setError("Error making post. Please try again.");
@@ -133,6 +138,7 @@ const App = () => {
           width: "100vw",
         }}
       >
+        <CongratsAnimation isVisible={showCongrats} />
         <Box
           sx={{
             flex: 1, // Allows this box to grow, taking up half the space
