@@ -30,8 +30,7 @@ app.get("/", (req, res) => {
 app.post("/api/getScore", (req, res) => {
   try {
     const user_input: string = req.body;
-    console.log(user_input);
-
+    
     // TODO: Get the score from inference side
     const score = 10;
 
