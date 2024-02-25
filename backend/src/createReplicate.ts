@@ -5,7 +5,6 @@ export default async function createReplicate(userInstruction: string) {
     auth: process.env.REPLICATE_API_TOKEN,
   });
 
-  console.log(userInstruction);
   const input = {
     top_k: 50,
     top_p: 0.9,

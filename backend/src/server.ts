@@ -1,4 +1,5 @@
 import express, { Request, Response } from "express";
+import axios from "axios";
 import paraphraseReplicate from "./paraphraseReplicate";
 import createReplicate from "./createReplicate";
 
@@ -23,9 +24,24 @@ let userInputScores: { [key: string]: number } = {
 
 const server_check: string = "Server is running properly";
 
-const generateRandomNumber = (): number => {
-  const randomNumber: number = Math.random() * 9 + 1;
-  return parseFloat(randomNumber.toFixed(2));
+const inferenceResult = async (user_input: string): Promise<number> => {
+  // const randomNumber: number = Math.random() * 9 + 1;
+  // return parseFloat(randomNumber.toFixed(2));
+  const url: string = 'https://dynamic-condor-reliably.ngrok-free.app/llama2'
+
+  const data = {
+    "input": user_input 
+  }
+  try {
+    const response = await axios.post(
+      url, data
+    );
+    return response.data.result; 
+  } catch (error ) {
+    console.error("Error: ", error);
+    return 0;
+  }
+  
 };
 
 app.get("/", (req, res) => {
@@ -36,14 +52,12 @@ app.get("/", (req, res) => {
   }
 });
 
-app.post("/api/getScore", (req, res) => {
+app.post("/api/getScore", async (req, res) => {
   try {
-    const user_input: string = req.body;
+    const user_input: string = req.body.userInput;
 
-    // TODO: Get the score from inference side
-    const score: number = generateRandomNumber();
+    const score: number = await inferenceResult(user_input);
 
-    // Return the current score back to frontend
     res.status(201).json({ score });
   } catch (error: any) {
     res.status(500).json({ message: error.message });
@@ -53,16 +67,12 @@ app.post("/api/getScore", (req, res) => {
 app.post("/api/makePost", (req, res) => {
   try {
     const userInput: UserInput = req.body;
-    console.log("userInput", userInput);
     // Store the record in our server
     const { text, score } = req.body.userInput;
-    console.log(text, score);
     userInputScores[text] = score;
     const successMessage: string =
       "Successfully stored the user input in server!";
     res.status(201).json({ successMessage });
-    console.log("userinputscores", userInputScores);
-    console.log(successMessage);
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }
