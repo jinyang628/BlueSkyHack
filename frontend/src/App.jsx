@@ -3,9 +3,9 @@ import { Container, CssBaseline } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TextInput from "./components/Input";
 import ClickButton from "./components/ClickButton";
-import { getScore } from "./api/getScore";
+import getScore from "./api/getScore";
 import makePost from "./api/makePost";
-import { getPostLeaderboard } from "./api/getPostLeaderboard";
+import getPostLeaderboard from "./api/getPostLeaderboard";
 
 // Create a theme instance
 const theme = createTheme({
@@ -20,6 +20,7 @@ const App = () => {
   const [inputText, setInputText] = useState("");
   const [score, setScore] = useState(null);
   const [error, setError] = useState(null);
+  const [leaderboard, setLeaderboard] = useState(null);
 
   const handleScore = async () => {
     try {
@@ -32,25 +33,51 @@ const App = () => {
     }
   };
 
+  // App.jsx
+
   const handlePost = async () => {
-    try {
-      const response = await makePost(inputText);
-      console.log("Post", response);
-      return response;
-    } catch (error) {
-      console.error("Error fetching score:", error);
-      setError("Error fetching score. Please try again.");
+    // Ensure there is a score before attempting to post
+    if (score !== null && inputText) {
+      try {
+        // Construct the userInput object based on the UserInput interface
+        const userInput = {
+          text: inputText,
+          score: score.score, // Assuming score is an object with a 'score' property
+        };
+
+        // Call makePost with the constructed userInput object
+        const response = await makePost(userInput);
+        // Handle response or success state here, such as resetting the form
+      } catch (error) {
+        console.error("Error making post:", error);
+        setError("Error making post. Please try again.");
+      }
+    } else {
+      // Handle the case where score or inputText is not available
+      setError(
+        "Please ensure text is entered and a score is generated before posting."
+      );
     }
   };
 
   const handleLeaderboard = async () => {
     try {
-      const response = await getScore(inputText);
-      setScore(response.data);
+      const response = await getPostLeaderboard();
+      setLeaderboard(response.data);
       setError(null);
     } catch (error) {
-      console.error("Error fetching score:", error);
-      setError("Error fetching score. Please try again.");
+      console.error("Error fetching leaderboard:", error);
+      setError("Error fetching leaderboard. Please try again.");
+    }
+  };
+
+  const handleGenerate = async () => {
+    try {
+      console.log("Generating...");
+      setError(null);
+    } catch (error) {
+      console.error("Error generating:", error);
+      setError("Error generating. Please try again.");
     }
   };
 
@@ -81,7 +108,21 @@ const App = () => {
           <ClickButton onClick={handleScore}>Get Score</ClickButton>
           <ClickButton onClick={handlePost}>Post</ClickButton>
           <ClickButton onClick={handleLeaderboard}>Get Leaderboard</ClickButton>
+          <ClickButton onClick={handleGenerate}>Help me Replicate!</ClickButton>
           {score && <p>Score: {score.score}</p>}
+          {leaderboard && (
+            <div>
+              <h3>Leaderboard:</h3>
+              <ul>
+                {Object.entries(leaderboard).map(([name, score], index) => (
+                  <li key={index}>
+                    {name}: {score}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
           {error && <p>Error: {error}</p>}
         </Container>
       </div>
