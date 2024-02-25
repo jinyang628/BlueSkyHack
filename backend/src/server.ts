@@ -34,7 +34,7 @@ app.post('/api/getScore', (req, res) => {
     const score = 10; 
   
     // Return the current score back to frontend 
-    res.status(201).send(score);
+    res.status(201).json({ score });
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }
