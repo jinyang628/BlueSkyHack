@@ -15,10 +15,10 @@ app.use(cors());
 
 const userInputScores: { [key: string]: number } = {};
 
-const data: string = "teddst"
+const data: string = "Server is running properly"
 
 
-// GET retrieves data FROM the server
+// GET retrieves data FROM the server (TESTING function, delete later)
 app.get('/', (req, res) => {
     try {
         res.status(200).json(data);
@@ -50,6 +50,14 @@ app.post('/api/makePost', (req, res) => {
     const score: number = userInput.score;
     userInputScores[input_text] = score;
     res.status(201).send("Successfully stored the user input in server!");
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+app.get('/api/getPostLeaderboard', (req, res) => {
+  try {
+    res.status(200).json(userInputScores);
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }
