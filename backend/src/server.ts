@@ -63,7 +63,10 @@ app.post("/api/makePost", (req, res) => {
 
 app.get("/api/getPostLeaderboard", (req, res) => {
   try {
-    res.status(200).json(userInputScores);
+    let scoresArray = Object.entries(userInputScores);
+    scoresArray.sort((a, b) => b[1] - a[1]);
+    let sortedScores = Object.fromEntries(scoresArray);
+    res.status(200).json(sortedScores);
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }
